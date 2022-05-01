@@ -67,9 +67,7 @@ You will need to install the following locally:
    - The notification method on POST should save the notification object and queue the notification id for the function to pick it up
 2. Re-deploy the web app to publish changes
 
-## Monthly Cost Analysis
-
-Complete a month cost analysis of each Azure resource to give an estimate total cost using the table below:
+## Development and testing Cost Analysis
 
 | Azure Resource          | Service Tier                      | Monthly Cost |
 | ----------------------- | --------------------------------- | ------------ |
@@ -79,6 +77,17 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 | Azure App Service       | Free tier F1 1GB ram, 1GB storage | $0           |
 | Azure Storage Account   | General purpose v1                | $24.01       |
 | Estimated monthly Cost  |                                   | $72.08       |
+
+## Production Cost Analysis
+
+| Azure Resource          | Service Tier                               | Monthly Cost |
+| ----------------------- | ------------------------------------------ | ------------ |
+| Azure Postgres Database | Single server, General purpose Gen 5       | $397.07      |
+| Azure Service Bus       | Standard                                   | $9.81        |
+| Azure Functions         | Premium 1 Core 3.5GB Ram 250GB Storage     | $365.07      |
+| Azure App Service       | Standard S2 2 Cores 3.5GB Ram 50GB Storage | $138.70      |
+| Azure Storage Account   | General purpose v1                         | $24.01       |
+| Estimated monthly Cost  |                                            | $934.67      |
 
 ## Architecture Explanation
 
@@ -95,3 +104,8 @@ Azure Functions
 - Easily use it to incorporate with Azure Service Bus, Azure Event Hub,...
 - Save of cost. We only pay as we execute the function.
 - Easily scale the function if we need
+
+Using Azure Wep App for frontend and Azure Functions for backend to reduce error due to http timeout. This architecture is scalable, cheap
+and performing web app with microservices that easy to maintain. Besides, using Azure Service Bus to decouple application and service
+from each other. The message will be added to the queue of Service Bus, it sends the email to attendees and update status when the function is
+triggered.
